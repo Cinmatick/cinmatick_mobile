@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'Screens/Home_screen/home.dart';
+import 'Screens/SplashScreen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Cinmatick',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
