@@ -1,5 +1,6 @@
-import 'package:cinmatick/Widgets/button.dart';
 import 'package:flutter/material.dart';
+
+import 'homewidget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,23 +11,11 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(""),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: ButtonWidget(
-                textColor: Colors.black,
-                backgroundcolor: Colors.cyan,
-                borderColor: Colors.black,
-                text: "text",
-                icon: Icons.abc_rounded,
-                size: 40,
-              ),
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          HomeWidget(),
+        ],
       ),
       backgroundColor: Colors.grey,
     );
