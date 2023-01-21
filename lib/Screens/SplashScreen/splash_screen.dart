@@ -1,7 +1,6 @@
+import 'package:cinmatick/Screens/onbording_screen/onboarding_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
-
-import '../Home_screen/home.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,10 +14,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 4)).then((value) {
+    Future.delayed(const Duration(seconds: 2)).then((value) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: ((context) => const HomeScreen()),
+          builder: ((context) => const OnboardingScreen()),
         ),
       );
     });
