@@ -21,7 +21,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Color.fromRGBO(255, 134, 20, 10),
+              color: const Color.fromRGBO(255, 134, 20, 10),
             ),
           ),
           child: TextFormField(
@@ -61,7 +61,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Color.fromRGBO(255, 134, 20, 10),
+              color: const Color.fromRGBO(255, 134, 20, 10),
             ),
           ),
           child: TextFormField(
@@ -101,7 +101,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Color.fromRGBO(255, 134, 20, 10),
+              color: const Color.fromRGBO(255, 134, 20, 10),
             ),
           ),
           child: TextFormField(
@@ -140,7 +140,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Color.fromRGBO(255, 134, 20, 10),
+              color: const Color.fromRGBO(255, 134, 20, 10),
             ),
           ),
           child: TextFormField(

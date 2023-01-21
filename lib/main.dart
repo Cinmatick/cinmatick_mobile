@@ -13,6 +13,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Cinmatick',
       theme: ThemeData(
+        // bottomAppBarColor: Color.fromARGB(255, 41, 41, 44),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 41, 41, 44),
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          backgroundColor: Color.fromARGB(255, 41, 41, 44),
+        ),
         primarySwatch: Colors.blue,
       ),
       home: const SplashScreen(),

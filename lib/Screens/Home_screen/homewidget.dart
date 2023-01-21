@@ -56,3 +56,109 @@ class _HomeWidgetState extends State<HomeWidget> {
     );
   }
 }
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 12, right: 12),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.grey,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 5, right: 5, top: 7, bottom: 7),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              SizedBox(
+                width: 5,
+              ),
+              Icon(Icons.search, color: Colors.white70),
+              SizedBox(
+                width: 15,
+              ),
+              Expanded(
+                child: Text(
+                  "Search Movies",
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MovieScroll extends StatefulWidget {
+  const MovieScroll({super.key});
+
+  @override
+  State<MovieScroll> createState() => _MovieScrollState();
+}
+
+class _MovieScrollState extends State<MovieScroll> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                color: Colors.red,
+                child: const Center(
+                  child: Text('Container 1'),
+                ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Container(
+                width: 100,
+                height: 100,
+                color: Colors.green,
+                child: const Center(
+                  child: Text('Container 2'),
+                ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Container(
+                width: 100,
+                height: 100,
+                color: Colors.blue,
+                child: const Center(
+                  child: Text('Container 3'),
+                ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Container(
+                width: 100,
+                height: 100,
+                color: Colors.grey,
+                child: const Center(
+                  child: Text('Container 3'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

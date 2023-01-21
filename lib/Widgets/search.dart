@@ -1,38 +1,38 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class SearchWidget extends StatefulWidget {
-  const SearchWidget({super.key});
+// class SearchTool extends StatefulWidget {
+//   const SearchTool({super.key});
 
-  @override
-  State<SearchWidget> createState() => _SearchWidgetState();
-}
+//   @override
+//   State<SearchTool> createState() => _SearchToolState();
+// }
 
-class _SearchWidgetState extends State<SearchWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 12, right: 12),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: const Color.fromRGBO(98, 96, 100, 80),
-            ),
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.search, color: Colors.white),
-                  Expanded(child: Text("Search Movies")),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
+// class _SearchToolState extends State<SearchTool> {
+//   final TextEditingController _searchController = TextEditingController();
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.only(left: 20.0, right: 20),
+//       child: TextField(
+//         controller: _searchController,
+//         decoration: InputDecoration(
+//           fillColor: Colors.grey,
+//           filled: true,
+//           focusedBorder: const OutlineInputBorder(
+//             borderSide: BorderSide(width: 0.8, color: Colors.white70),
+//           ),
+//           border: OutlineInputBorder(
+//             borderRadius: BorderRadius.circular(20),
+//           ),
+//           hintText: "Search Movies",
+//           hintStyle:
+//               const TextStyle(height: 0.1, fontSize: 13, color: Colors.white70),
+//           prefixIcon: const Icon(
+//             Icons.search,
+//             color: Colors.white70,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
