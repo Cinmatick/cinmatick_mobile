@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cinmatick/Screens/profile_screen.dart';
+import 'package:cinmatick/Services/navigate_help.dart';
 
 import 'package:cinmatick/Utility/item.dart';
-import 'package:cinmatick/Widgets/search.dart';
 import 'package:cinmatick/Widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -73,7 +74,11 @@ class _HomeScreen1State extends State<HomeScreen1> {
       appBar: AppBar(
         actions: [
           CircleAvatar(
-            child: Image.asset("assets/images/Ellipse 1.png"),
+            child: GestureDetector(
+                onTap: () {
+                  goTo(context, const ProfileScreen());
+                },
+                child: Image.asset("assets/images/Ellipse 1.png")),
           ),
         ],
       ),
@@ -155,22 +160,34 @@ class _HomeScreen1State extends State<HomeScreen1> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    Container(
-                      width: 100,
-                      height: 137,
-                      child: Center(
-                        child: Image.asset("assets/images/cat3.png"),
-                      ),
+                    Column(
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 137,
+                          child: Center(
+                            child: Image.asset("assets/images/cat3.png"),
+                          ),
+                        ),
+                        textInfo("text", FontWeight.w400, Colors.white, 13,
+                            "Roboto"),
+                      ],
                     ),
                     const SizedBox(
                       width: 10,
                     ),
-                    Container(
-                      width: 100,
-                      height: 137,
-                      child: Center(
-                        child: Image.asset("assets/images/cat2.png"),
-                      ),
+                    Column(
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 137,
+                          child: Center(
+                            child: Image.asset("assets/images/cat2.png"),
+                          ),
+                        ),
+                        textInfo("text", FontWeight.w400, Colors.white, 13,
+                            "Roboto"),
+                      ],
                     ),
                     const SizedBox(
                       width: 10,
@@ -184,6 +201,8 @@ class _HomeScreen1State extends State<HomeScreen1> {
                             child: Image.asset("assets/images/cat1.png"),
                           ),
                         ),
+                        textInfo("text", FontWeight.w400, Colors.white, 13,
+                            "Roboto"),
                       ],
                     ),
                     const SizedBox(
@@ -198,16 +217,21 @@ class _HomeScreen1State extends State<HomeScreen1> {
                             child: Image.asset("assets/images/cat4.png"),
                           ),
                         ),
+                        textInfo("text", FontWeight.w400, Colors.white, 13,
+                            "Roboto"),
                       ],
                     ),
                     const SizedBox(width: 10),
-                    Container(
-                      width: 100,
-                      height: 100,
-                      color: Colors.purple,
-                      child: const Center(
-                        child: Text('Container 3'),
-                      ),
+                    Column(
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 137,
+                          child: Image.asset("assets/images/cat2.png"),
+                        ),
+                        textInfo("text", FontWeight.w400, Colors.white, 13,
+                            "Roboto"),
+                      ],
                     ),
                   ],
                 ),

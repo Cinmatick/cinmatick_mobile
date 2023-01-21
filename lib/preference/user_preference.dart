@@ -1,47 +1,50 @@
-// import 'package:deltanews/provider/user_provider.dart';
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// import '../model/user.dart';
+import '../Models/user.dart';
 
-// class UserPreference{
+class UserPreference {
+  Future<bool> saveUser(User user) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
 
-//   Future<bool> saveUser(User user) async{
+    pref.setString("name", user.name);
+    pref.setString("token", user.token);
+    return true;
+  }
 
-//     final SharedPreferences pref = await SharedPreferences.getInstance();
+  Future<User> getUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String name = prefs.getString("name").toString();
+    String token = prefs.getString("token").toString();
+    String email = prefs.getString("email").toString();
+    String phoneNumber = prefs.getString("phoneNumber").toString();
+    String password = prefs.getString("password").toString();
+    String confirmPassword = prefs.getString("Confirm password").toString();
+    return User(
+        name: name,
+        token: token,
+        email: email,
+        password: password,
+        phoneNumber: phoneNumber,
+        confirmPassword: confirmPassword);
+  }
 
-//     pref.setString("name", user.name);
-//     pref.setString("token", user.token);
+  void removeUser() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
 
-//     return pref.commit();
-//   }
+    preferences.remove("name");
+    preferences.remove("token");
+    preferences.remove("email");
+    preferences.remove("phoneNumber");
+    preferences.remove("password");
+    preferences.remove("confirmPassword");
+  }
 
-//   Future<User> getUser() async{
+  Future<String> getToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("token").toString();
 
-//     final SharedPreferences prefs = await SharedPreferences.getInstance();
-//     String user = prefs.getString("name").toString();
-//     String token = prefs.getString("token").toString();
-
-   
-//     return User(name: user, token: token);
-//   }
-
-//   void removeUser() async{
-
-//     final SharedPreferences preferences = await SharedPreferences.getInstance();
-
-//     preferences.remove("name");
-//     preferences.remove("token");
-    
-//   }
-
-//   Future<String> getToken() async{
-
-//     final SharedPreferences prefs = await SharedPreferences.getInstance();
-//     String token = prefs.getString("token").toString();
-
-//     return token;
-//   }
-
-// }
+    return token;
+  }
+}

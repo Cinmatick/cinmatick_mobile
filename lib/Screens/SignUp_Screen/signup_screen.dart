@@ -1,8 +1,15 @@
+import 'package:cinmatick/Screens/Home_screen/home_screen1.dart';
 import 'package:cinmatick/Screens/SignIn_Screen/signin_screen.dart';
 import 'package:cinmatick/Services/navigate_help.dart';
 import 'package:cinmatick/Widgets/button.dart';
 import 'package:cinmatick/Widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/user.dart';
+import '../../Provider/auth_provider.dart';
+import '../../Provider/user_provider.dart';
+import '../../util/http_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -17,6 +24,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
   final TextEditingController name = TextEditingController();
+  final TextEditingController phoneNumber = TextEditingController();
+  final TextEditingController token = TextEditingController();
   bool _ontrue = true;
   void _toggle() {
     setState(() {
@@ -26,6 +35,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -144,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const EdgeInsets.only(left: 8, right: 8, top: 6),
                         child: TextFormField(
                           keyboardType: TextInputType.emailAddress,
-                          controller: email,
+                          controller: phoneNumber,
                           validator: (value) {
                             if (value == "") {
                               return "Number field cannot be empty";
@@ -276,23 +287,59 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(height: 30),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(17.0, 0.0, 17.0, 0.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            goTo(context, const SignInScreen());
-                          }
-                        },
-                        child: ButtonWidget(
-                          backgroundcolor:
-                              const Color.fromRGBO(255, 134, 50, 10),
-                          size: 45,
-                          text: 'Sign up',
-                          borderColor: Colors.black,
-                          textColor: Colors.black,
-                        ),
-                      ),
+                      child: authProvider.registeredInStatus ==
+                              Status.Registering
+                          ? const CircularProgressIndicator()
+                          : GestureDetector(
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  authProvider
+                                      .register(
+                                          name.text,
+                                          email.text,
+                                          phoneNumber.text,
+                                          password.text,
+                                          confirmPassword.text,
+                                          token.text)
+                                      .then((response) {
+                                    if (response['status'] == 200) {
+                                      // print(response['data']);
+                                      // String name = response['data'].name;
+                                      User user = User(
+                                          name: response['data'].name,
+                                          token: response['data'].token,
+                                          email: response['data'].email,
+                                          password: response['data'].password,
+                                          phoneNumber:
+                                              response['data'].phoneNumber,
+                                          confirmPassword:
+                                              response['data'].confirmPassword);
+                                      userProvider.setUser(user);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => goTo(
+                                                  context,
+                                                  const HomeScreen1())));
+                                    } else {
+                                      HttpService().showMessage(
+                                          response['message'], context);
+                                    }
+                                  });
+                                  // goTo(context, const SignInScreen());
+                                }
+                              },
+                              child: ButtonWidget(
+                                backgroundcolor:
+                                    const Color.fromRGBO(255, 134, 50, 10),
+                                size: 45,
+                                text: 'Sign up',
+                                borderColor: Colors.black,
+                                textColor: Colors.black,
+                              ),
+                            ),
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 3),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [

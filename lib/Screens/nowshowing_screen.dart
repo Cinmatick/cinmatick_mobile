@@ -1,9 +1,6 @@
-import 'package:cinmatick/Screens/Home_screen/homewidget.dart';
 import 'package:cinmatick/Screens/book_ticket_screen.dart';
 import 'package:cinmatick/Services/navigate_help.dart';
-import 'package:cinmatick/Widgets/search.dart';
 import 'package:cinmatick/Widgets/text_widget.dart';
-
 import 'package:flutter/material.dart';
 
 class NowShowingScreen extends StatefulWidget {

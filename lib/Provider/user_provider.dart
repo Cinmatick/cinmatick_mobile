@@ -1,18 +1,17 @@
-// import 'package:cinmatick/Models/user.dart';
-// import 'package:flutter/material.dart';
+import 'package:cinmatick/Models/user.dart';
+import 'package:flutter/material.dart';
 
-// import '../model/user.dart';
+class UserProvider with ChangeNotifier {
+  var changeName = "name";
+  var changeEmail = "email";
+  var changepassword = "password";
+  var token = "";
 
-// class UserProvider with ChangeNotifier{
-
-//     var changeName = "";
-
-//      var token = "";
-
-//     void setUser(User name){
-//       changeName = name.user;
-//       token = name.token;
-//       notifyListeners();
-//     }
-
-// }
+  void setUser(User user) {
+    changeName = user.name;
+    changeEmail = user.email;
+    changepassword = user.password;
+    token = user.token;
+    notifyListeners();
+  }
+}

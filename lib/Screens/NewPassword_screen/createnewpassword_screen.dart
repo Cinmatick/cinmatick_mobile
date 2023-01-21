@@ -166,7 +166,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                                           left: 80, right: 80),
                                       child: GestureDetector(
                                         onTap: () {
-                                          goTo(context, SignInScreen());
+                                          goTo(context, const SignInScreen());
                                         },
                                         child: ButtonWidget(
                                           textColor: Colors.black,
