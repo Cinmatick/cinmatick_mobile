@@ -22,8 +22,6 @@ class _ShowingNowScreenState extends State<ShowingNowScreen> {
   @override
   void initState() {
     super.initState();
-    
-   
   }
 
   @override
@@ -41,8 +39,8 @@ class _ShowingNowScreenState extends State<ShowingNowScreen> {
           child: Column(
             children: [
               const SizedBox(height: 30),
-              textInfo(widget.name, FontWeight.w500,
-                  Colors.white, 20, "Roboto"),
+              textInfo(
+                  widget.name, FontWeight.w500, Colors.white, 20, "Roboto"),
               const SizedBox(height: 30),
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -54,13 +52,13 @@ class _ShowingNowScreenState extends State<ShowingNowScreen> {
                   selectedColor: Colors.orange,
                   showMonth: false,
                   onDateSelected: (date) {
+                    // ignore: avoid_print
                     print(date.toString());
-                    
                   },
-        ),
+                ),
               ),
-            
-            const SizedBox(height: 40),
+
+              const SizedBox(height: 40),
               const Divider(
                 color: Colors.white,
                 endIndent: 25.0,
@@ -68,20 +66,24 @@ class _ShowingNowScreenState extends State<ShowingNowScreen> {
                 thickness: 1.0,
               ),
               const SizedBox(height: 50),
-              textInfo("Golden screen Imax Beta city", FontWeight.w500,
-                  Colors.white, 15, "Roboto"),
-              textInfo("Beta City Mall, Asaba", FontWeight.w400, Colors.white, 12,
-                  "Roboto"),
+              Row(
+                children: [
+                  // Image.asset("Assets/Images/location"),
+                  textInfo("Golden screen Imax Beta city", FontWeight.w500,
+                      Colors.white, 15, "Roboto"),
+                ],
+              ),
+              textInfo("Beta City Mall, Asaba", FontWeight.w400, Colors.white,
+                  12, "Roboto"),
               const SizedBox(height: 60),
               //bigger box
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                    CustomRadio(),
-                    
-                  ],
+                children: const [
+                  CustomRadio(),
+                ],
               ),
-            
+
               const SizedBox(height: 100),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
