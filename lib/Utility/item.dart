@@ -1,25 +1,53 @@
+import 'package:cinmatick/Provider/get_data.dart';
 import 'package:flutter/material.dart';
 
-final List<String> imgList = [
-  'assets/images/onbordimg1.png',
-  'assets/images/onbordimg2.png',
-  'assets/images/onbordimg3.png',
-];
+import '../Widgets/text_widget.dart';
 
-final List<Widget> imageSliders = imgList
+
+
+
+
+
+
+
+ List<Widget> imageSliders(List<String> imgList, List<String>? nameList) {
+  return imgList
     .map(
-      (item) => ClipRRect(
+      (item) {
+        var index = imgList.indexOf(item);
+        return ClipRRect(
         //borderRadius: const BorderRadius.all(Radius.circular(5.0)),
         child: Stack(
           children: [
-            Image.asset(
-              item,
-              fit: BoxFit.fill,
-              height: 1000,
-              width: 1000.0,
+           
+            Container(
+              margin: const EdgeInsets.only(right: 10),
+              child: Image.network(
+                item,
+                fit: BoxFit.fill,
+                height: 1000,
+                width: 1000,
+              ),
             ),
+
+          nameList!.isNotEmpty ? Center(
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              decoration: const BoxDecoration(
+                color: Colors.redAccent
+              ),
+              child: textInfo(nameList[index], FontWeight.w400, Colors.white, 13,
+                                 "Roboto"),
+            ),
+          ) : Container()
+
+
+            
           ],
         ),
-      ),
+      );
+      }
     )
     .toList();
+
+ }

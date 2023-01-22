@@ -10,6 +10,7 @@ import '../../Models/user.dart';
 import '../../Provider/auth_provider.dart';
 import '../../Provider/user_provider.dart';
 import '../../util/http_service.dart';
+import '../Home_screen/home.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -289,7 +290,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       padding: const EdgeInsets.fromLTRB(17.0, 0.0, 17.0, 0.0),
                       child: authProvider.registeredInStatus ==
                               Status.Registering
-                          ? const CircularProgressIndicator()
+                          ? const Center(child:  CircularProgressIndicator())
                           : GestureDetector(
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
@@ -297,9 +298,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       .register(
                                           name.text,
                                           email.text,
-                                          phoneNumber.text,
                                           password.text,
                                           confirmPassword.text,
+                                           phoneNumber.text,
                                           token.text)
                                       .then((response) {
                                     if (response['status'] == 200) {
@@ -315,12 +316,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           confirmPassword:
                                               response['data'].confirmPassword);
                                       userProvider.setUser(user);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => goTo(
+                                     goTo(
                                                   context,
-                                                  const HomeScreen1())));
+                                                  const HomeScreen());
                                     } else {
                                       HttpService().showMessage(
                                           response['message'], context);

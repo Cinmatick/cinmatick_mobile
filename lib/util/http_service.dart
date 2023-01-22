@@ -10,9 +10,9 @@ class HttpService {
 
   static const String login = "${base_url}login";
 
-  // static const String blogs = "${base_url}blogs";
+  static const String home = "${base_url}home";
 
-  // static const String updateblog = "${base_url}update-blog/";
+  static const String showSearch = "${base_url}shows/search";
 
   // static const String deleteblog = "${base_url}delete-blog/";
 

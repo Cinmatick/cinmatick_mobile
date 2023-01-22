@@ -1,3 +1,4 @@
+import 'package:cinmatick/Screens/SignIn_Screen/signin_screen.dart';
 import 'package:cinmatick/Screens/SignUp_Screen/signup_screen.dart';
 import 'package:cinmatick/Screens/onbording_screen/intro_page3.dart';
 import 'package:cinmatick/Services/navigate_help.dart';
@@ -69,7 +70,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 onLastPage
                     ? GestureDetector(
                         onTap: () {
-                          goTo(context, const SignUpScreen());
+                          goTo(context, const SignInScreen());
                         },
                         child: const Icon(
                           Icons.arrow_forward_outlined,

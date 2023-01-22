@@ -9,6 +9,8 @@ class UserPreference {
     final SharedPreferences pref = await SharedPreferences.getInstance();
 
     pref.setString("name", user.name);
+    pref.setString("email", user.name);
+    pref.setString("phone_no", user.name);
     pref.setString("token", user.token);
     return true;
   }
@@ -18,16 +20,16 @@ class UserPreference {
     String name = prefs.getString("name").toString();
     String token = prefs.getString("token").toString();
     String email = prefs.getString("email").toString();
-    String phoneNumber = prefs.getString("phoneNumber").toString();
-    String password = prefs.getString("password").toString();
-    String confirmPassword = prefs.getString("Confirm password").toString();
+    String phoneNumber = prefs.getString("phone_no").toString();
+    // String password = prefs.getString("password").toString();
+    // String confirmPassword = prefs.getString("Confirm password").toString();
     return User(
         name: name,
         token: token,
         email: email,
-        password: password,
+        password: "",
         phoneNumber: phoneNumber,
-        confirmPassword: confirmPassword);
+        confirmPassword: "");
   }
 
   void removeUser() async {
@@ -36,9 +38,9 @@ class UserPreference {
     preferences.remove("name");
     preferences.remove("token");
     preferences.remove("email");
-    preferences.remove("phoneNumber");
-    preferences.remove("password");
-    preferences.remove("confirmPassword");
+    preferences.remove("phone_no");
+    // preferences.remove("password");
+    // preferences.remove("confirmPassword");
   }
 
   Future<String> getToken() async {

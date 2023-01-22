@@ -19,7 +19,7 @@ class User {
     return User(
       name: jsonData['name'],
       email: jsonData['email'],
-      phoneNumber: jsonData['phoneNumber'],
+      phoneNumber: jsonData['phone_no'],
       password: jsonData[' password'],
       confirmPassword: jsonData['confirmPassword'],
       token: jsonData['token'],

@@ -32,7 +32,7 @@ class AuthProvider with ChangeNotifier {
       "email": email,
       "password": password
     };
-    print(loginData);
+    // print(loginData);
     _loginStatus = Status.loggedIn;
     notifyListeners();
 
@@ -59,8 +59,8 @@ class AuthProvider with ChangeNotifier {
       "name": name,
       "email": email,
       "password": password,
-      "confirm password": confirmPassword,
-      "phoneNumber": phoneNumber,
+      "password_confirmation": confirmPassword,
+      "phone_no": phoneNumber,
     };
     print(registrationData);
     _registerdInStatus = Status.Registering;
@@ -68,7 +68,10 @@ class AuthProvider with ChangeNotifier {
 
     var response = await post(Uri.parse(HttpService.register),
             body: json.encode(registrationData),
-            headers: {'content-Type': 'application/json'})
+            headers: {
+              'content-Type': 'application/json',
+              'Accept': 'application/json',
+              })
         .then(onValue)
         .catchError(onError);
 
@@ -80,22 +83,29 @@ class AuthProvider with ChangeNotifier {
 
   static Future onValue(Response response) async {
     var result;
-    print(response.body);
+    // print(response.statusCode);
     final Map<String, dynamic> responseData = json.decode(response.body);
-    print(responseData);
-    if (response.statusCode == 200) {
-      // print(response);
+    // print(responseData);
+    if (response.statusCode == 201) {
+     
 
-      if (responseData.containsKey('validation_errors')) {
+      if (responseData.containsKey('errors')) {
         result = {
           'status': 500,
-          'message': responseData['validation_errors'].toString(),
+          'message': responseData['errors'].toString(),
           'data': null
         };
       } else {
-        var userdata = responseData;
+        var userdata = responseData['user'];
 
-        User user = User.fromJson(userdata);
+        User user = User(
+           name: userdata['name'],
+           email: userdata['email'],
+          phoneNumber: userdata['phone_no'],
+          password: "",
+          confirmPassword: "",
+          token: responseData['token']
+          );
 
         UserPreference().saveUser(user);
 

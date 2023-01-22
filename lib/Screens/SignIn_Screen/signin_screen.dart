@@ -4,7 +4,13 @@ import 'package:cinmatick/Screens/SignUp_Screen/signup_screen.dart';
 import 'package:cinmatick/Services/navigate_help.dart';
 import 'package:cinmatick/Widgets/button.dart';
 import 'package:cinmatick/Widgets/text_widget.dart';
+import 'package:cinmatick/util/http_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/user.dart';
+import '../../Provider/auth_provider.dart';
+import '../../Provider/user_provider.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -26,6 +32,8 @@ class _LoginScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+     final authProvider = Provider.of<AuthProvider>(context);
+     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -152,10 +160,43 @@ class _LoginScreenState extends State<SignInScreen> {
                     const SizedBox(height: 40),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(17.0, 0.0, 17.0, 0.0),
-                      child: GestureDetector(
+                      child: 
+                      authProvider.loginStatus ==
+                              Status.loggedIn
+                          ? const Center(child:  CircularProgressIndicator())
+                          :
+                      GestureDetector(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            goTo(context, const HomeScreen());
+                             authProvider
+                                      .login(
+                                         email.text,
+                                         password.text,
+                                         )
+                                      .then((response) {
+print(response);
+                                    if (response['status'] == 200) {
+                                      
+                                      // String name = response['data'].name;
+                                      // User user = User(
+                                      //     name: response['data'].name,
+                                      //     token: response['data'].token,
+                                      //     email: response['data'].email,
+                                      //     password: "",
+                                      //     phoneNumber:
+                                      //         response['data'].phoneNumber,
+                                      //     confirmPassword:
+                                      //         "");
+                                      // userProvider.setUser(user);
+                                     goTo(
+                                                  context,
+                                                  const HomeScreen());
+                                    } else {
+                                      HttpService().showMessage(
+                                          response['message'], context);
+                                    }
+                                  });
+                            // goTo(context, const HomeScreen());
                           }
                         },
                         child: ButtonWidget(
