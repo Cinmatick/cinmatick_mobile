@@ -99,7 +99,7 @@ class AuthProvider with ChangeNotifier {
         var userdata = responseData['user'];
 
         User user = User(
-           id: userdata['id'],
+           id: userdata['id'].toString(),
            name: userdata['name'],
            email: userdata['email'],
           phoneNumber: userdata['phone_no'],
