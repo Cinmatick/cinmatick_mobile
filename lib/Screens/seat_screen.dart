@@ -3,16 +3,32 @@ import 'package:cinmatick/Services/navigate_help.dart';
 import 'package:cinmatick/Widgets/Counter.dart';
 import 'package:cinmatick/Widgets/button.dart';
 import 'package:cinmatick/Widgets/text_widget.dart';
+import 'package:cinmatick/util/http_service.dart';
 import 'package:flutter/material.dart';
+import 'package:number_inc_dec/number_inc_dec.dart';
 
 class SeatScreen extends StatefulWidget {
-  const SeatScreen({super.key});
+  const SeatScreen({super.key, required this.name, required this.id, required this.cinemaID, required this.cinemaName, required this.time, required this.date, required this.image, required this.theatre_id, required this.show_id, required this.price});
+
+  final String name;
+  final int id;
+  final int theatre_id;
+   final int show_id;
+  final int price;
+  final String cinemaID;
+  final String cinemaName;
+  final String time;
+  final String date;
+  final String image;
 
   @override
   State<SeatScreen> createState() => _SeatScreenState();
 }
 
 class _SeatScreenState extends State<SeatScreen> {
+
+  TextEditingController _controller = new TextEditingController();
+  var seat;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +42,7 @@ class _SeatScreenState extends State<SeatScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            textInfo("Avatar 2 - The way of water", FontWeight.w500,
+            textInfo(widget.name, FontWeight.w500,
                 Colors.white, 15, "Roboto"),
             const SizedBox(height: 20),
             Padding(
@@ -39,9 +55,9 @@ class _SeatScreenState extends State<SeatScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        textInfo("Sun 18 December, 2022", FontWeight.w300,
+                        textInfo(widget.date, FontWeight.w300,
                             Colors.white, 13, "Roboto"),
-                        textInfo("IMAX", FontWeight.w300, Colors.white, 13,
+                        textInfo(widget.cinemaName, FontWeight.w600, Colors.white, 16,
                             "Roboto"),
                       ],
                     ),
@@ -54,7 +70,7 @@ class _SeatScreenState extends State<SeatScreen> {
                       children: [
                         textInfo("Golden Screen IMAX Beta City",
                             FontWeight.w300, Colors.white, 13, "Roboto"),
-                        textInfo("IMDb Ultra", FontWeight.w300, Colors.white,
+                        textInfo(widget.cinemaID, FontWeight.w600, Colors.white,
                             13, "Roboto"),
                       ],
                     ),
@@ -77,8 +93,8 @@ class _SeatScreenState extends State<SeatScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadiusDirectional.circular(4),
                     child: Container(
-                      width: 147,
-                      height: 191,
+                      width: 150,
+                      height: 220,
                       child: Image.asset(
                         "assets/images/onbordimg1.png",
                         fit: BoxFit.fill,
@@ -98,45 +114,86 @@ class _SeatScreenState extends State<SeatScreen> {
                             borderRadius: BorderRadius.circular(3),
                             border: Border.all(width: 1, color: Colors.white),
                             color: Colors.transparent),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 5),
-                            Center(
-                                child: textInfo("Add Ticket", FontWeight.w700,
-                                    Colors.white, 15, "Roboto")),
-                            const SizedBox(height: 5),
-                          ],
+                        child:  Center(
+                          child: textInfo("Add Ticket", FontWeight.w400,
+                                      Colors.white, 12, "Roboto"),
+                        )),
+                            
+                        
+                      
+                                Container(
+                                  width: 180,
+                                  height: 50,
+                                  // color: Colors.white,
+                                  decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3),
+                            
+                            border: Border.all(width: 1, color: Colors.white),
+                            color: Colors.transparent),
+                                  child: NumberInputPrefabbed.roundedButtons(
+                          controller: _controller,
+                          onIncrement: (num newlyIncrementedValue) {
+                            print('Newly incremented value is $newlyIncrementedValue');
+                            setState(() {
+                              seat = newlyIncrementedValue;
+                            });
+                          },
+                          onDecrement: (num newlyDecrementedValue) {
+                              setState(() {
+                              seat = newlyDecrementedValue;
+                            });
+                            print('Newly decremented value is $newlyDecrementedValue');
+                          },
+                          incDecBgColor: Colors.orange,
+                          buttonArrangement: ButtonArrangement.incRightDecLeft,
                         ),
-                      ),
-                      const AddCount(),
+                                ),
                       Container(
                         height: 30,
                         width: 180,
+                        
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(3),
                             border: Border.all(width: 1, color: Colors.white),
                             color: Colors.transparent),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 5),
+                        child:
                             Center(
-                                child: textInfo("4 Seat", FontWeight.w700,
-                                    Colors.white, 15, "Roboto")),
-                            const SizedBox(height: 5),
-                          ],
-                        ),
+                                child: textInfo(seat== null ? "0 Seat" :   "$seat Seat(s)", FontWeight.w700,
+                                    Colors.white, 13, "Roboto")),
+                     
                       ),
+
+                      //   Container(
+                      //   height: 34,
+                      //   width: 180,
+                      //   decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(3),
+                      //       border: Border.all(width: 1, color: Colors.white),
+                      //       color: Colors.transparent),
+                      //   child:
+                      //       Center(
+                      //           child: textInfo("#0", FontWeight.w700,
+                      //               Colors.white, 16, "Roboto")),
+                     
+                      // ),
                     ],
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 150),
+            const SizedBox(height: 70),
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
               child: GestureDetector(
                 onTap: () {
-                  goTo(context, const BookingSummary());
+                  if(seat != null) {
+                  goTo(context, BookingSummary(name: widget.name, id: widget.id, 
+                  cinemaID: widget.cinemaID, cinemaName: widget.cinemaName, 
+                  time: widget.time, date: widget.date, image: widget.image, seatNo: seat,
+                  price: widget.price, show_id: widget.show_id, theatre_id: widget.theatre_id,));
+                  }else{
+                    HttpService().showMessage("Select Seat Number", context);
+                  }
                 },
                 child: ButtonWidget(
                   backgroundcolor: const Color.fromRGBO(255, 134, 50, 10),

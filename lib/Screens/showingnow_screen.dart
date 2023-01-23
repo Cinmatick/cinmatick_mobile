@@ -3,14 +3,20 @@ import 'package:cinmatick/Services/navigate_help.dart';
 import 'package:cinmatick/Utility/custom_radio.dart';
 import 'package:cinmatick/Widgets/button.dart';
 import 'package:cinmatick/Widgets/text_widget.dart';
+import 'package:cinmatick/util/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
+import 'package:intl/intl.dart';
 
 class ShowingNowScreen extends StatefulWidget {
-  const ShowingNowScreen({super.key, required this.name, required this.id});
+  const ShowingNowScreen({super.key, required this.name, required this.id, required this.image, required this.theatre_id, required this.price, required this.show_id});
 
   final String name;
+  final String image;
   final int id;
+  final int theatre_id;
+  final int show_id;
+  final int price;
 
   @override
   State<ShowingNowScreen> createState() => _ShowingNowScreenState();
@@ -18,6 +24,7 @@ class ShowingNowScreen extends StatefulWidget {
 
 class _ShowingNowScreenState extends State<ShowingNowScreen> {
   var selectedDate;
+  var value, cinemaName, cinemaID, Cinematime;
 
   @override
   void initState() {
@@ -53,7 +60,10 @@ class _ShowingNowScreenState extends State<ShowingNowScreen> {
                   showMonth: false,
                   onDateSelected: (date) {
                     // ignore: avoid_print
-                    print(date.toString());
+                    print(date);
+                    setState(() {
+                      selectedDate = date;
+                    });
                   },
                 ),
               ),
@@ -66,21 +76,22 @@ class _ShowingNowScreenState extends State<ShowingNowScreen> {
                 thickness: 1.0,
               ),
               const SizedBox(height: 50),
-              Row(
-                children: [
-                  // Image.asset("Assets/Images/location"),
-                  textInfo("Golden screen Imax Beta city", FontWeight.w500,
+              // Row(
+              //   children: [
+              //     // Image.asset("Assets/Images/location"),
+                
+              //   ],
+              // ),
+                textInfo("Location: Golden screen Imax Beta city", FontWeight.w500,
                       Colors.white, 15, "Roboto"),
-                ],
-              ),
               textInfo("Beta City Mall, Asaba", FontWeight.w400, Colors.white,
                   12, "Roboto"),
               const SizedBox(height: 60),
               //bigger box
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  CustomRadio(),
+                children:  [
+                  OutlinedButtonCustom(context),
                 ],
               ),
 
@@ -89,12 +100,20 @@ class _ShowingNowScreenState extends State<ShowingNowScreen> {
                 padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                 child: GestureDetector(
                   onTap: () {
-                    goTo(context, const SeatScreen());
+                    if(cinemaID !=null){
+                     
+                    goTo(context,  SeatScreen(cinemaID: cinemaID, cinemaName: cinemaName,
+                    date: selectedDate != null ? DateFormat.yMMMEd().format(DateTime.parse(selectedDate.toString())) : DateFormat.yMMMEd().format(DateTime.now()), id: widget.id, name: widget.name,
+                    time: Cinematime, image: widget.image, price: widget.price, theatre_id: widget.theatre_id,
+                    show_id: widget.show_id,));
+                    }else{
+                      HttpService().showMessage("Select a Time", context);
+                    }
                   },
                   child: ButtonWidget(
                     backgroundcolor: const Color.fromRGBO(255, 134, 50, 10),
                     size: 45,
-                    text: 'Book Ticket ',
+                    text: 'Book Ticket',
                     borderColor: Colors.black,
                     textColor: Colors.black,
                   ),
@@ -103,6 +122,82 @@ class _ShowingNowScreenState extends State<ShowingNowScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget CustomRadioButton(String text, String text2, String text3, int index) {
+    return OutlinedButton(
+      onPressed: () {
+        setState(() {
+          value = index;
+          cinemaName = text;
+          cinemaID = text2;
+          Cinematime = text3;
+          print(text);
+        });
+      },
+      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      // borderSide:
+      //     BorderSide(color: (value == index) ? Colors.green : Colors.black),
+      child: Container(
+        height: 100,
+        width: 90,
+        margin: const EdgeInsets.only(bottom: 20),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(3),
+            border: Border.all(
+                width: 1,
+                color: (value == index) ? Colors.orange : Colors.white),
+            color: Colors.transparent),
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            textInfo(text, FontWeight.w500, Colors.white, 14, "Roboto"),
+            const SizedBox(height: 2),
+            textInfo(text2, FontWeight.w500, Colors.white, 10, "Roboto"),
+            const SizedBox(height: 20),
+            textInfo(text3, FontWeight.w500, Colors.white, 18, "Roboto")
+          ],
+        ),
+      ),
+
+      // Text(
+      //   text,
+      //   style: TextStyle(
+      //     color: (value == index) ? Colors.green : Colors.black,
+      //   ),
+      // ),
+    );
+  }
+
+  Widget OutlinedButtonCustom(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          Column(
+            children: <Widget>[
+              CustomRadioButton("2D", "HDolbyAtmos", "11:00AM", 1),
+              CustomRadioButton("IMAX", "HDolbyAtmos", "4:30PM", 2),
+              // CustomRadioButton("Single", "d", "d", 3),
+            ],
+          ),
+          Column(
+            children: <Widget>[
+              CustomRadioButton("IMAX", "HDolbyAtmos", "2:00PM", 4),
+              CustomRadioButton("2D", "HDolbyAtmos", "8:00PM", 5),
+              // CustomRadioButton("Single", "d", "d", 6),
+            ],
+          ),
+          Column(
+            children: <Widget>[
+              CustomRadioButton("IMAX", "HDolbyAtmos", "3:00PM", 7),
+              CustomRadioButton("2D", "HDolbyAtmos", "9:30PM", 8),
+              // CustomRadioButton("Single", "d", "d", 9),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -83,10 +83,10 @@ class AuthProvider with ChangeNotifier {
 
   static Future onValue(Response response) async {
     var result;
-    // print(response.statusCode);
+    print(response.statusCode);
     final Map<String, dynamic> responseData = json.decode(response.body);
-    // print(responseData);
-    if (response.statusCode == 201) {
+    print(responseData);
+    if (response.statusCode == 201 || response.statusCode == 200) {
      
 
       if (responseData.containsKey('errors')) {
@@ -99,6 +99,7 @@ class AuthProvider with ChangeNotifier {
         var userdata = responseData['user'];
 
         User user = User(
+           id: userdata['id'],
            name: userdata['name'],
            email: userdata['email'],
           phoneNumber: userdata['phone_no'],

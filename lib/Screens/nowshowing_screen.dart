@@ -54,10 +54,10 @@ class _NowShowingScreenState extends State<NowShowingScreen> {
        final Map<String, dynamic> responseData = json.decode(response.body);
 
           if(response.statusCode == 200){
-
+              print(responseData);
           
             setState(() {
-             _allUsers = responseData['shows']['data'];
+             _allUsers = responseData['shows'];
               _foundUsers = _allUsers;
               loading = false;
             });
@@ -144,7 +144,7 @@ class _NowShowingScreenState extends State<NowShowingScreen> {
                       itemCount: _foundUsers.length,
                       itemBuilder: (context, index) => 
                       Card(
-                        key: ValueKey(_foundUsers[index]["id"]),
+                        // key: ValueKey(_foundUsers[index]["id"]),
                         color: Colors.redAccent,
                         elevation: 4,
                         margin: const EdgeInsets.symmetric(vertical: 10),
@@ -152,6 +152,7 @@ class _NowShowingScreenState extends State<NowShowingScreen> {
                    
               ListTile(
                 onTap: () {
+                  print(_foundUsers[index]['show'][0]['price']);
                   goTo(context,  BookTicket(
                     id: _foundUsers[index]["id"],
                     name: _foundUsers[index]["name"],
@@ -159,7 +160,10 @@ class _NowShowingScreenState extends State<NowShowingScreen> {
                     description: _foundUsers[index]["description"],
                     image: url + _foundUsers[index]["image"],
                     date: _foundUsers[index]["released_date"],
-                    pg: _foundUsers[index]["pg"],
+                    pg: _foundUsers[index]["cast"],
+                    price: _foundUsers[index]['show'][0]['price'],
+                    theatre_id: _foundUsers[index]['show'][0]['theatre_id'],
+                    show_id: _foundUsers[index]['show'][0]['id'],
                   ));
                 },
                           leading:  

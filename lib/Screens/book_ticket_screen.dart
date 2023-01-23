@@ -5,7 +5,7 @@ import 'package:cinmatick/Widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 class BookTicket extends StatefulWidget {
-  const BookTicket({super.key, required this.image, required this.name, required this.description, required this.date, required this.rating, required this.pg, required this.id});
+  const BookTicket({super.key, required this.image, required this.name, required this.description, required this.date, required this.rating, required this.pg, required this.id, required this.theatre_id, required this.price, required this.show_id});
   final String image;
   final String name;
   final String description;
@@ -13,6 +13,9 @@ class BookTicket extends StatefulWidget {
   final int rating;
   final String pg;
   final int id;
+  final int theatre_id;
+   final int show_id;
+  final int price;
   @override
   State<BookTicket> createState() => _BookTicketState();
 }
@@ -88,9 +91,9 @@ class _BookTicketState extends State<BookTicket> {
               Container(
                 child: Column(
                   children: [
-                    textInfo("Golden screen Imax Beta city", FontWeight.w500,
-                        Colors.white, 15, "Roboto"),
-                    textInfo("Beta City Mall, Asaba", FontWeight.w400,
+                    textInfo("Casts:", FontWeight.w500,
+                        Colors.white, 13, "Roboto"),
+                    textInfo(widget.pg, FontWeight.w400,
                         Colors.white, 12, "Roboto"),
                     const SizedBox(height: 20),
                     textInfo("Description", FontWeight.w400, Colors.white, 18,
@@ -111,7 +114,11 @@ class _BookTicketState extends State<BookTicket> {
                   onTap: () {
                     goTo(context,  ShowingNowScreen(
                       id: widget.id,
-                      name: widget.name
+                      name: widget.name,
+                      image: widget.image,
+                      theatre_id: widget.theatre_id,
+                      price: widget.price,
+                      show_id: widget.show_id,
                     ));
                   },
                   child: ButtonWidget(

@@ -2,8 +2,22 @@ import 'package:cinmatick/Screens/Home_screen/home_screen1.dart';
 import 'package:cinmatick/Widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'Home_screen/home.dart';
+
 class TicketScreen extends StatefulWidget {
-  const TicketScreen({super.key});
+  const TicketScreen({super.key, required this.name, required this.id, required this.cinemaID, required this.cinemaName, required this.time, required this.date, required this.image, required this.seatNo, required this.theatre_id, required this.show_id, required this.price});
+
+  final String name;
+  final int id;
+  final String cinemaID;
+  final String cinemaName;
+  final String time;
+  final String date;
+  final String image;
+  final int seatNo;
+   final int theatre_id;
+   final int show_id;
+  final int price;
 
   @override
   State<TicketScreen> createState() => _TicketScreenState();
@@ -22,7 +36,7 @@ class _TicketScreenState extends State<TicketScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const HomeScreen1(),
+                    builder: (context) => const HomeScreen(),
                   ),
                 );
               }),
@@ -43,20 +57,20 @@ class _TicketScreenState extends State<TicketScreen> {
                 child: Center(
                   child: Column(
                     children: [
-                      Image.asset(
-                        "assets/images/scan.png",
+                      Image.network(
+                       widget.image,
                         fit: BoxFit.fill,
                       ),
                       Column(
                         children: [
-                          textInfo("Avatar 2 - The way of water",
+                          textInfo(widget.name,
                               FontWeight.w400, Colors.white, 18, "Roboto"),
-                          textInfo("Sun 18 December, 2022 ", FontWeight.w300,
+                          textInfo(widget.date, FontWeight.w300,
                               Colors.white, 15, "Roboto"),
-                          textInfo("Golden Screen IMAX Beta City",
+                          textInfo(widget.cinemaName + " " + widget.cinemaID,
                               FontWeight.w300, Colors.white, 15, "Roboto"),
                           const SizedBox(height: 20),
-                          textInfo("14:00", FontWeight.w300, Colors.white, 15,
+                          textInfo(widget.time, FontWeight.w300, Colors.white, 15,
                               "Roboto"),
                         ],
                       ),
@@ -71,7 +85,7 @@ class _TicketScreenState extends State<TicketScreen> {
                   children: [
                     Image.asset("assets/images/seaticon.png"),
                     const SizedBox(width: 20),
-                    textInfo("Seat F4, F5, F6, F7", FontWeight.w300,
+                    textInfo("${widget.seatNo} Seat", FontWeight.w300,
                         Colors.white, 15, "Roboto"),
                   ],
                 ),

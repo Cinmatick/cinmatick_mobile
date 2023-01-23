@@ -39,8 +39,8 @@ class _AddCountState extends State<AddCount> {
             }
           },
           child: Container(
-            height: 30,
-            width: 30,
+            height: 40,
+            width: 40,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(3),
                 border: Border.all(width: 1, color: Colors.white),
@@ -76,8 +76,8 @@ class _AddCountState extends State<AddCount> {
             }
           },
           child: Container(
-            height: 30,
-            width: 30,
+            height: 40,
+            width: 40,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(3),
                 border: Border.all(width: 1, color: Colors.white),

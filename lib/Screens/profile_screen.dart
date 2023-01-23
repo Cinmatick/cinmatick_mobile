@@ -1,6 +1,10 @@
 import 'package:cinmatick/Widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../Services/navigate_help.dart';
+import '../preference/user_preference.dart';
+import 'SignIn_Screen/signin_screen.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -9,6 +13,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+ String name = "";
+  String email = "";
+  @override
+  void initState() {
+     UserPreference().getUser().then((value) {
+      setState(() {
+        name = value.name;
+      email = value.email;
+      });
+
+      
+     });
+
+
+    }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,15 +49,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Row(
                     children: [
-                      textInfo("Solomon", FontWeight.w400, Colors.white, 17,
+                      textInfo(name + "\n" + email, FontWeight.w400, Colors.white, 16,
                           "roboto"),
                       const SizedBox(width: 40),
                       Image.asset("assets/images/editicon.png"),
                     ],
                   ),
-                  const SizedBox(height: 2),
-                  textInfo("Solomonesplus@gmail.com", FontWeight.w400,
-                      Colors.white, 10, "roboto"),
+                  // const SizedBox(height: 2),
+                  // textInfo(email, FontWeight.w400,
+                  //     Colors.white, 12, "roboto"),
                 ],
               ),
               const SizedBox(width: 50),
@@ -148,18 +167,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           const SizedBox(height: 25),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0, top: 12, bottom: 12),
-                child: Image.asset("assets/images/logouticon.png"),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0, top: 12, bottom: 12),
-                child: textInfo(
-                    "Log out", FontWeight.w400, Colors.white, 17, "roboto"),
-              ),
-            ],
+          GestureDetector(
+            onTap: () {
+               UserPreference().removeUser();
+                goTo(context, const SignInScreen());
+            },
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0, top: 12, bottom: 12),
+                  child: Image.asset("assets/images/logouticon.png"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0, top: 12, bottom: 12),
+                  child: textInfo(
+                      "Log out", FontWeight.w400, Colors.white, 17, "roboto"),
+                ),
+              ],
+            ),
           ),
         ],
       ),

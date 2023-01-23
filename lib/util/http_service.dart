@@ -14,7 +14,9 @@ class HttpService {
 
   static const String showSearch = "${base_url}shows/search";
 
-  // static const String deleteblog = "${base_url}delete-blog/";
+    static const String book = "${base_url}bookShow";
+
+  static const String bookedShows = "${base_url}bookedShows";
 
   void showMessage(String message, BuildContext context) {
     var snackbar = SnackBar(content: Text(message));

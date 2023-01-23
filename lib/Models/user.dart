@@ -1,4 +1,5 @@
 class User {
+  final String  id;
   final String name;
   final String email;
   final String phoneNumber;
@@ -7,6 +8,7 @@ class User {
   final String token;
 
   const User({
+    required this.id,
     required this.name,
     required this.email,
     required this.phoneNumber,
@@ -17,6 +19,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> jsonData) {
     return User(
+      id: jsonData['id'],
       name: jsonData['name'],
       email: jsonData['email'],
       phoneNumber: jsonData['phone_no'],

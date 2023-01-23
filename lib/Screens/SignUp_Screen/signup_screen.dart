@@ -304,18 +304,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           token.text)
                                       .then((response) {
                                     if (response['status'] == 200) {
-                                      // print(response['data']);
+                                      // pr2int(response);
                                       // String name = response['data'].name;
-                                      User user = User(
-                                          name: response['data'].name,
-                                          token: response['data'].token,
-                                          email: response['data'].email,
-                                          password: response['data'].password,
-                                          phoneNumber:
-                                              response['data'].phoneNumber,
-                                          confirmPassword:
-                                              response['data'].confirmPassword);
-                                      userProvider.setUser(user);
+                                    //   User user = User(
+                                    //       name: response['data'].name,
+                                    //       token: response['data'].token,
+                                    //       email: response['data'].email,
+                                    //       password: response['data'].password,
+                                    //       phoneNumber:
+                                    //           response['data'].phoneNumber,
+                                    //       confirmPassword:
+                                    //           response['data'].confirmPassword);
+                                    //   userProvider.setUser(user);
                                      goTo(
                                                   context,
                                                   const HomeScreen());
