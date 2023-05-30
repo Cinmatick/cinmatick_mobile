@@ -1,5 +1,10 @@
+<<<<<<< Updated upstream
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+=======
+import 'package:cinmatick/Screens/onbording_screen/onboarding_screen.dart';
+>>>>>>> Stashed changes
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../Home_screen/home.dart';
 
@@ -34,10 +39,10 @@ class _SplashScreenState extends State<SplashScreen> {
           Colors.black,
         ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
       ),
-      child: Center(
+      child: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Image(
               image: AssetImage("assets/images/splashimage.png"),
               width: 250,
